@@ -13,7 +13,7 @@ GLFWwindow* InitMisc::initGlfwWindow(const GLuint width, const GLuint height)
 	if (window == nullptr)
 		throw exception("GLFW window not created");
 	glfwMakeContextCurrent(window);
-	glfwSetKeyCallback(window, key_callback);
+	//glfwSetKeyCallback(window, key_callback); //TODO
 
 	glViewport(0, 0, width, height); //CAUTION!!! This might be in the wrong place
 	glEnable(GL_DEPTH_TEST); //CAUTION!!! This might be in the wrong place

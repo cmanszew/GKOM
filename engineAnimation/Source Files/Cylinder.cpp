@@ -89,5 +89,7 @@ void Cylinder::genSideIndices(vector<GLuint> &indices, GLuint cnt)
 	for (int i = 0; i < cnt; ++i) {
 		indices.push_back(i);
 	}
+	indices.push_back(0);
+	indices.push_back(1);
 }
 
