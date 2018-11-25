@@ -20,6 +20,7 @@ using namespace std;
 #include "VertexBufferLayout.h"
 #include "Renderer.h"
 #include "Cylinder.h"
+#include "Camera.h"
 
 const GLuint WIDTH = 800, HEIGHT = 800;
 
@@ -58,14 +59,15 @@ int main()
 	try
 	{
 		GLFWwindow* window = initializer.initGlfwWindow(WIDTH, HEIGHT);
+		Camera camera(window);
 		initializer.initGlew();
 
 		// create model, view, projection matrices
 		glm::mat4 model;
-		model = glm::rotate(model, glm::radians(-40.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		//model = glm::rotate(model, glm::radians(-40.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 
 		glm::mat4 view;
-		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+		view = camera.getViewMatrix();
 
 		glm::mat4 projection;
 		projection = glm::perspective(glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
@@ -111,7 +113,9 @@ int main()
 			glfwPollEvents();
 			renderer.clear();
 
-			//gluCylinder(gluNewQuadric(), 0.5f, 0.5f, 0.3f, 100, 100);???
+			view = camera.getViewMatrix();
+			mvp = projection * view * model;
+			theProgram.setUniformMatrix4fv("uTransform", mvp);
 
 			theProgram.setUniform4f("uColor", 0.82f, 0.82f, 0.85f, 1.0f);
 			renderer.drawTriangles(cylinder.getVao(), cylinder.getBaseIbo(), theProgram);

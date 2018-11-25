@@ -123,6 +123,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source Files\Camera.cpp" />
     <ClCompile Include="Source Files\Cylinder.cpp" />
     <ClCompile Include="Source Files\Renderer.cpp" />
     <ClCompile Include="Source Files\VertexBufferLayout.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="Source Files\VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Header Files\Camera.h" />
     <ClInclude Include="Header Files\Cylinder.h" />
     <ClInclude Include="Header Files\IndexBuffer.h" />
     <ClInclude Include="Header Files\InitMisc.h" />
