@@ -21,37 +21,9 @@ using namespace std;
 #include "Renderer.h"
 #include "Cylinder.h"
 #include "Camera.h"
+#include "Piston.h"
 
 const GLuint WIDTH = 800, HEIGHT = 800;
-
-/* TODO: embed this function into a shape class (f. e. class Cylinder,
-and make it generate apropriate vertices. Currently it draws a circle */
-void genVertices(vector<GLfloat> &vertices)
-{
-	const int angle_inc = 5;
-	const float radius = 0.3f;
-
-	for (int angle = 0; angle < 360; angle += angle_inc) {
-		vertices.push_back(radius * (float)cos((double)angle * M_PI / 180.0));
-		vertices.push_back(0.0f);
-		vertices.push_back(radius * (float)sin((double)angle * M_PI / 180.0));
-	}
-	vertices.push_back(0.0f);
-	vertices.push_back(0.0f);
-	vertices.push_back(0.0f);
-}
-
-/* TODO: embed this function into a shape class (f. e. class Cylinder,
-and make it generate apropriate indices. Currently it draws a circle */
-void genIndices(vector<GLuint> &indices, GLuint indCnt)
-{	
-	for (GLuint i = 0; i < indCnt; ++i) {
-		indices.push_back(indCnt);
-		indices.push_back(i);
-		indices.push_back((i + 1) % indCnt);
-		cout << "Drawing: " << indCnt << " " << i << " " << (i + 1) % indCnt << endl;
-	}
-}
 
 int main()
 {
@@ -102,27 +74,46 @@ int main()
 		theProgram.setUniformMatrix4fv("uTransform", mvp);
 
 		// create cylinder
-		Cylinder cylinder(0.8f, 0.5f);
+		Cylinder cylinder(0.35f, 0.25f);
+
+		// create Pistons
+		vector<Piston> pistons = {
+			Piston(-1.5f, 0.0f),
+			Piston(-0.9f, 0.0f, GLfloat(M_PI / 3)),
+			Piston(-0.3f, 0.0f, GLfloat(2 * M_PI / 3)),
+			Piston(0.3f, 0.0f, GLfloat(2 * M_PI / 3)),
+			Piston(0.9f, 0.0f, GLfloat(M_PI / 3)),
+			Piston(1.5f, 0.0f),
+		};
 
 		// create renderer
 		Renderer renderer;
 
+		glfwSetTime(0.0);
+		const GLfloat conRodLen = 0.8f;
+		const GLfloat crankRad = 0.2f;
+		const GLfloat revs = 100 * (2 * M_PI / 60);
+
 		// main event loop
 		while (!glfwWindowShouldClose(window))
 		{
+			GLfloat time = glfwGetTime();
+
 			glfwPollEvents();
 			renderer.clear();
 
 			view = camera.getViewMatrix();
+
+			//draw pistons
+			for (auto &piston : pistons) {
+				piston.setAngle(revs * time);
+				renderer.drawPiston(piston, cylinder, theProgram, projection * view, crankRad, conRodLen);
+			}
+
+			//draw square
+			model = glm::mat4();
 			mvp = projection * view * model;
 			theProgram.setUniformMatrix4fv("uTransform", mvp);
-
-			theProgram.setUniform4f("uColor", 0.82f, 0.82f, 0.85f, 1.0f);
-			renderer.drawTriangles(cylinder.getVao(), cylinder.getBaseIbo(), theProgram);
-
-			theProgram.setUniform4f("uColor", 0.92f, 0.92f, 0.95f, 1.0f);
-			renderer.drawTriangleStrip(cylinder.getVao(), cylinder.getSideIbo(), theProgram);
-
 			renderer.drawTriangles(vao, ibo2, theProgram);
 
 			glfwSwapBuffers(window);

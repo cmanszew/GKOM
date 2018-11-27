@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="Source Files\Camera.cpp" />
     <ClCompile Include="Source Files\Cylinder.cpp" />
+    <ClCompile Include="Source Files\Piston.cpp" />
     <ClCompile Include="Source Files\Renderer.cpp" />
     <ClCompile Include="Source Files\VertexBufferLayout.cpp" />
     <ClCompile Include="Source Files\VertexArray.cpp" />
@@ -139,6 +140,7 @@
     <ClInclude Include="Header Files\Cylinder.h" />
     <ClInclude Include="Header Files\IndexBuffer.h" />
     <ClInclude Include="Header Files\InitMisc.h" />
+    <ClInclude Include="Header Files\Piston.h" />
     <ClInclude Include="Header Files\Renderer.h" />
     <ClInclude Include="Header Files\shprogram.h" />
     <ClInclude Include="Header Files\VertexArray.h" />

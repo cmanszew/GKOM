@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-glm::vec3 Camera::cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
+glm::vec3 Camera::cameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
 glm::vec3 Camera::cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
 glm::vec3 Camera::cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::vec3 Camera::cameraRight = glm::normalize(glm::cross(cameraTarget - cameraPos, cameraUp));
@@ -21,8 +21,8 @@ void Camera::processInput(GLFWwindow* window, int key, int scancode, int action,
 	float angle = glm::radians(5.0f);
 	float step = 0.1f;
 
-	cout << "x=" << cameraPos.x << " y=" << cameraPos.y << " z=" << cameraPos.z << endl;
-	cout << "angle=" << posAngle << endl;
+	//cout << "x=" << cameraPos.x << " y=" << cameraPos.y << " z=" << cameraPos.z << endl;
+	//cout << "angle=" << posAngle << endl;
 	if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, GL_TRUE);
 
