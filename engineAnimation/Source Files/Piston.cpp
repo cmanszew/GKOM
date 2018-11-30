@@ -1,7 +1,5 @@
 #include "Piston.h"
 
-//Cylinder Piston::cylinder = Cylinder(0.4f, 0.25f); ughhhhh... c++ <3
-
 Piston::Piston(GLfloat x, GLfloat y, GLfloat offset)
 	: x(x), offset(offset), angle(0), model()
 {
@@ -10,7 +8,6 @@ Piston::Piston(GLfloat x, GLfloat y, GLfloat offset)
 
 void Piston::setY(GLfloat y)
 {
-	this->y = y;
 	model = glm::translate(glm::mat4(), glm::vec3(x, y, 0));
 }
 
@@ -39,7 +36,3 @@ GLfloat Piston::getX()
 	return x;
 }
 
-GLfloat Piston::getY()
-{
-	return y;
-}

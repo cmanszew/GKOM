@@ -22,8 +22,23 @@ using namespace std;
 #include "Cylinder.h"
 #include "Camera.h"
 #include "Piston.h"
+#include "Prism.h"
+#include "ConnectingRod.h"
 
 const GLuint WIDTH = 800, HEIGHT = 800;
+
+const GLfloat cylBore = 0.5f;
+const GLfloat cylStroke = 0.6f;
+const GLfloat cylSpacing = cylBore + 0.15f;
+const GLfloat conRodLen = 0.7f;
+const GLfloat conRodThck = 0.1f;
+const GLfloat crankRad = cylStroke / 2.0f;
+const GLfloat crankPinRad = 0.05f; //TODO: pass this to Renderer::drawConnectingRod
+const GLfloat crankShaftRad = 0.12f;
+const GLfloat secToRevolution = GLfloat(2 * M_PI / 60);
+const GLfloat piston1x = -5.0f / 2.0f * (cylSpacing);
+
+const GLfloat rpm = 200.0f; //TODO - make this configurable
 
 int main()
 {
@@ -35,86 +50,69 @@ int main()
 		initializer.initGlew();
 
 		// create model, view, projection matrices
-		glm::mat4 model;
-		//model = glm::rotate(model, glm::radians(-40.0f), glm::vec3(1.0f, 0.0f, 0.0f));
-
-		glm::mat4 view;
-		view = camera.getViewMatrix();
-
-		glm::mat4 projection;
-		projection = glm::perspective(glm::radians(45.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f);
-
-		glm::mat4 mvp = projection * view * model;
-
-		// create VertexBuffer object
-		vector<GLfloat> vertices2 = {
-			-1.0f, -1.0f, 0.0f,
-			-0.5f,-1.0f, 0.0f,
-			-1.0f, -0.5f, 0.0f,
-			-0.5f, -0.5f, 0.0f,
-		};
-		VertexBuffer vbo2(sizeof(GLfloat) * vertices2.size(), &vertices2[0], GL_STATIC_DRAW);
-
-		// create VertexArray object
-		VertexArray vao;
-		VertexBufferLayout vbl;
-		vbl.pushGLfloat(3);
-		vao.associateVertexBuffer(vbo2, vbl);
-
-		// create IndexBuffer object
-		vector<GLuint> indices2 = {
-			0, 1, 2,
-			1, 2, 3,
-		};
-		IndexBuffer ibo2(indices2.size(), &indices2[0], GL_STATIC_DRAW);
+		glm::mat4 model, view;
+		glm::mat4 projection(glm::perspective(glm::radians(40.0f), (float)WIDTH / (float)HEIGHT, 0.1f, 100.0f));
+		//projection = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, 0.01f, 100.0f);
 		
 		// create ShaderProgram
 		ShaderProgram theProgram("Source Files/shader.vert", "Source Files/shader.frag");
-		theProgram.setUniform4f("uColor", 0.82f, 0.82f, 0.85f, 1.0f);
-		theProgram.setUniformMatrix4fv("uTransform", mvp);
 
 		// create cylinder
-		Cylinder cylinder(0.35f, 0.25f);
+		Cylinder cylinder(0.35f, cylBore / 2);
+		Cylinder cylinder2(cylSpacing - conRodThck, crankShaftRad);
 
 		// create Pistons
 		vector<Piston> pistons = {
-			Piston(-1.5f, 0.0f),
-			Piston(-0.9f, 0.0f, GLfloat(M_PI / 3)),
-			Piston(-0.3f, 0.0f, GLfloat(2 * M_PI / 3)),
-			Piston(0.3f, 0.0f, GLfloat(2 * M_PI / 3)),
-			Piston(0.9f, 0.0f, GLfloat(M_PI / 3)),
-			Piston(1.5f, 0.0f),
+			Piston(piston1x, 0.0f),
+			Piston(piston1x + cylSpacing, 0.0f, GLfloat(-M_PI / 3)),
+			Piston(piston1x + 2 * cylSpacing, 0.0f, GLfloat(-2 * M_PI / 3)),
+			Piston(piston1x + 3 * cylSpacing, 0.0f, GLfloat(-2 * M_PI / 3)),
+			Piston(piston1x + 4 * cylSpacing, 0.0f, GLfloat(-M_PI / 3)),
+			Piston(piston1x + 5 * cylSpacing, 0.0f),
+		};
+
+		// create rod
+		Prism prism(conRodLen);
+		vector<ConnectingRod> rods = {
+			ConnectingRod(pistons[0].getX(), pistons[0].getOffset()),
+			ConnectingRod(pistons[1].getX(), pistons[1].getOffset()),
+			ConnectingRod(pistons[2].getX(), pistons[2].getOffset()),
+			ConnectingRod(pistons[3].getX(), pistons[3].getOffset()),
+			ConnectingRod(pistons[4].getX(), pistons[4].getOffset()),
+			ConnectingRod(pistons[5].getX(), pistons[5].getOffset()),
 		};
 
 		// create renderer
 		Renderer renderer;
 
 		glfwSetTime(0.0);
-		const GLfloat conRodLen = 0.8f;
-		const GLfloat crankRad = 0.2f;
-		const GLfloat revs = 100 * (2 * M_PI / 60);
-
 		// main event loop
 		while (!glfwWindowShouldClose(window))
 		{
-			GLfloat time = glfwGetTime();
+			GLfloat time = (GLfloat)glfwGetTime();
 
 			glfwPollEvents();
 			renderer.clear();
 
 			view = camera.getViewMatrix();
 
-			//draw pistons
+			// draw pistons
 			for (auto &piston : pistons) {
-				piston.setAngle(revs * time);
+				piston.setAngle(rpm * (secToRevolution * time));
 				renderer.drawPiston(piston, cylinder, theProgram, projection * view, crankRad, conRodLen);
 			}
 
-			//draw square
-			model = glm::mat4();
-			mvp = projection * view * model;
-			theProgram.setUniformMatrix4fv("uTransform", mvp);
-			renderer.drawTriangles(vao, ibo2, theProgram);
+			// draw rods
+			theProgram.setUniform4f("uColor", 0.76f, 0.76f, 0.76f, 1.0f);
+			for (auto &conRod : rods) {
+				conRod.setAngle(rpm * (secToRevolution * time));
+				renderer.drawConnectingRod(conRod, prism, theProgram, projection * view, crankRad, conRodLen);
+			}
+
+			// draw crank
+			//model = glm::rotate(glm::mat4(), glm::radians(90.0f), glm::vec3(0.0f, 0.0f, 1.0f));
+			//theProgram.setUniformMatrix4fv("uTransform", projection * view * model);
+			//renderer.drawCylinder(cylinder2, theProgram);
 
 			glfwSwapBuffers(window);
 		}

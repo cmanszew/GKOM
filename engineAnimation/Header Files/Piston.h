@@ -17,12 +17,9 @@ public:
 	GLfloat getAngle();
 	GLfloat getOffset();
 	GLfloat getX();
-	GLfloat getY();
 
 private:
-//	static Cylinder cylinder;
 	GLfloat x;
-	GLfloat y;
 	GLfloat offset;
 
 	glm::mat4 model;

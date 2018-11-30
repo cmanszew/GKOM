@@ -1,6 +1,6 @@
 #include "Camera.h"
 
-glm::vec3 Camera::cameraPos = glm::vec3(0.0f, 0.0f, 5.0f);
+glm::vec3 Camera::cameraPos = glm::vec3(-4.5f, 2.5f, 3.0f);
 glm::vec3 Camera::cameraTarget = glm::vec3(0.0f, 0.0f, 0.0f);
 glm::vec3 Camera::cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
 glm::vec3 Camera::cameraRight = glm::normalize(glm::cross(cameraTarget - cameraPos, cameraUp));

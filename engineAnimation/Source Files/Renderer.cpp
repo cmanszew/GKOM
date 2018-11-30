@@ -1,6 +1,6 @@
 #include "Renderer.h"
 
-void Renderer::drawTriangles(const VertexArray &vao, const IndexBuffer & ibo, const ShaderProgram & theProgram) const
+void Renderer::drawTriangles(const VertexArray &vao, const IndexBuffer &ibo, const ShaderProgram &theProgram) const
 {
 	theProgram.use();
 	vao.bind();
@@ -42,6 +42,19 @@ void Renderer::drawPiston(Piston &piston, Cylinder &cylinder, ShaderProgram &the
 	drawCylinder(cylinder, theProgram);
 }
 
+void Renderer::drawConnectingRod(ConnectingRod &conRod, Prism &prism, ShaderProgram &theProgram, glm::mat4 viewProjection, GLfloat crankRad, GLfloat conRodLen)
+{
+	const double crankPinY = crankRad * sin(conRod.getAngle() + conRod.getOffset());
+	const double crankPinZ = crankRad * cos(conRod.getAngle() + conRod.getOffset());
+	glm::mat4 mvp;
+
+	conRod.setY(GLfloat(crankPinY + sqrt(pow(conRodLen, 2) - pow(crankPinZ, 2)) - 0.05f)); //TODO 0.05f == crankPinRad
+	conRod.setTilt(GLfloat(-asin(crankPinZ / conRodLen)));
+	//mvp = viewProjection * conRod.getModelMatrix();
+	mvp = viewProjection * conRod.getTransMatrix() * conRod.getRotMatrix();
+	theProgram.setUniformMatrix4fv("uTransform", mvp);
+	drawTriangles(prism.getVao(), prism.getIbo(), theProgram);
+}
 
 void Renderer::clear(GLfloat r, GLfloat g, GLfloat b, GLfloat a) const
 {
