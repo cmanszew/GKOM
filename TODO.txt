@@ -1,0 +1,12 @@
+openGL:
+- oœwietlenie,
+- tekstury??,
+- pod³o¿e,
+
+interakcja:
+- obr./min,
+- oœwietlenie,
+
+poprawki:
+- modularnoœæ wa³u korbowego (usuniêcie magicznych wartoœci, przekazanie odpowiednich parametrów do klasy - mo¿e klasa Silnik, agreguj¹ca wa³, korbowód oraz t³oki, zarz¹dzaj¹ca odpowienimi sta³ymi?),
+- uzale¿nienie szybkoœci ruchu kamery od czasu,

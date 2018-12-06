@@ -30,6 +30,14 @@ void Renderer::drawCylinder(const Cylinder &cylinder, ShaderProgram &theProgram)
 	drawTriangleStrip(cylinder.getVao(), cylinder.getSideIbo(), theProgram);
 }
 
+void Renderer::drawPrism(const Prism &prism, ShaderProgram &theProgram)
+{
+	theProgram.setUniform4f("uColor", 0.76f, 0.76f, 0.76f, 1.0f);
+	drawTriangles(prism.getVao(), prism.getSideIbo(), theProgram);
+	theProgram.setUniform4f("uColor", 0.68f, 0.68f, 0.68f, 1.0f);
+	drawTriangles(prism.getVao(), prism.getBaseIbo(), theProgram);
+}
+
 void Renderer::drawPiston(Piston &piston, Cylinder &cylinder, ShaderProgram &theProgram, glm::mat4 viewProjection, GLfloat crankRad, GLfloat conRodLen)
 {
 	const double crankPinY = crankRad * sin(piston.getAngle() + piston.getOffset());
@@ -50,10 +58,28 @@ void Renderer::drawConnectingRod(ConnectingRod &conRod, Prism &prism, ShaderProg
 
 	conRod.setY(GLfloat(crankPinY + sqrt(pow(conRodLen, 2) - pow(crankPinZ, 2)) - 0.05f)); //TODO 0.05f == crankPinRad
 	conRod.setTilt(GLfloat(-asin(crankPinZ / conRodLen)));
-	//mvp = viewProjection * conRod.getModelMatrix();
-	mvp = viewProjection * conRod.getTransMatrix() * conRod.getRotMatrix();
+	mvp = viewProjection * conRod.getModelMatrix();
 	theProgram.setUniformMatrix4fv("uTransform", mvp);
-	drawTriangles(prism.getVao(), prism.getIbo(), theProgram);
+	drawPrism(prism, theProgram);
+}
+
+void Renderer::drawCrankShaft(CrankShaft &crankShaft, Cylinder &cylinder, Cylinder &cylinder2, ShaderProgram &theProgram, glm::mat4 viewProjection)
+{
+	vector<glm::mat4> vec = crankShaft.getMainShaft();
+	vector<glm::mat4> vec2 = crankShaft.getRodConnectors();
+	glm::mat4 mvp;
+
+	for (unsigned int i = 0; i < vec.size(); ++i) {
+		mvp = viewProjection * vec[i];
+		theProgram.setUniformMatrix4fv("uTransform", mvp);
+		drawCylinder(cylinder, theProgram);
+	}
+
+	for (unsigned int i = 0; i < vec2.size(); ++i) {
+		mvp = viewProjection * vec2[i];
+		theProgram.setUniformMatrix4fv("uTransform", mvp);
+		drawCylinder(cylinder2, theProgram);
+	}
 }
 
 void Renderer::clear(GLfloat r, GLfloat g, GLfloat b, GLfloat a) const

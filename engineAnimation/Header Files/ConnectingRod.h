@@ -14,8 +14,6 @@ public:
 	void setTilt(GLfloat tilt);
 	void setAngle(GLfloat angle);
 	glm::mat4 getModelMatrix() const;
-	const glm::mat4& getTransMatrix() const;
-	const glm::mat4& getRotMatrix() const;
 	GLfloat getAngle();
 	GLfloat getOffset();
 

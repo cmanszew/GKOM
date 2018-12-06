@@ -6,18 +6,18 @@ Cylinder::Cylinder()
 {
 }
 
-Cylinder::Cylinder(GLfloat heigth, GLfloat radius)
+Cylinder::Cylinder(GLfloat height, GLfloat radiusA, GLfloat radiusB)
 {
-	set(heigth, radius);
+	set(height, radiusA, radiusB);
 }
 
-void Cylinder::set(GLfloat heigth, GLfloat radius)
+void Cylinder::set(GLfloat heigth, GLfloat radiusA, GLfloat radiusB)
 {
 	vector<GLfloat> vertices;
 	vector<GLuint> baseIndices, sideIndices;
 	VertexBufferLayout vbl;
 
-	genVertices(vertices, heigth, radius);
+	genVertices(vertices, heigth, radiusA, radiusB);
 	vbo.set(sizeof(GLfloat) * vertices.size(), &vertices[0], GL_STATIC_DRAW);
 
 	vbl.pushGLfloat(3);
@@ -45,18 +45,20 @@ const IndexBuffer& Cylinder::getSideIbo() const
 	return sideIbo;
 }
 
-void Cylinder::genVertices(vector<GLfloat> &vertices, GLfloat heigth, GLfloat radius)
+void Cylinder::genVertices(vector<GLfloat> &vertices, GLfloat heigth, GLfloat radiusA, GLfloat radiusB)
 {
 	const int angle_inc = 5;
 
-	for (int angle = 0; angle < 360; angle += angle_inc) {
-		vertices.push_back(radius * (float)cos((double)angle * M_PI / 180.0));
-		vertices.push_back(heigth / 2);
-		vertices.push_back(radius * (float)sin((double)angle * M_PI / 180.0));
+	radiusB = radiusB < 0.0f ? radiusA : radiusB;
 
-		vertices.push_back(radius * (float)cos((double)angle * M_PI / 180.0));
+	for (int angle = 0; angle < 360; angle += angle_inc) {
+		vertices.push_back(radiusA * (float)cos((double)angle * M_PI / 180.0));
+		vertices.push_back(heigth / 2);
+		vertices.push_back(radiusB * (float)sin((double)angle * M_PI / 180.0));
+
+		vertices.push_back(radiusA * (float)cos((double)angle * M_PI / 180.0));
 		vertices.push_back(-heigth / 2);
-		vertices.push_back(radius * (float)sin((double)angle * M_PI / 180.0));
+		vertices.push_back(radiusB * (float)sin((double)angle * M_PI / 180.0));
 	}
 	vertices.push_back(0.0f);
 	vertices.push_back(heigth / 2);

@@ -6,7 +6,7 @@ ConnectingRod::ConnectingRod(GLfloat x, GLfloat offset)
 
 void ConnectingRod::setY(GLfloat y)
 {
-	modelTrans = glm::translate(glm::mat4(), glm::vec3(x, y, 0));
+	modelTrans = glm::translate(glm::mat4(), glm::vec3(x, y, 0.0f));
 }
 
 void ConnectingRod::setTilt(GLfloat tilt)
@@ -21,17 +21,7 @@ void ConnectingRod::setAngle(GLfloat angle)
 
 glm::mat4 ConnectingRod::getModelMatrix() const
 {
-	return modelRot * modelTrans;
-}
-
-const glm::mat4& ConnectingRod::getTransMatrix() const
-{
-	return modelTrans;
-}
-
-const glm::mat4& ConnectingRod::getRotMatrix() const
-{
-	return modelRot;
+	return modelTrans * modelRot;
 }
 
 GLfloat ConnectingRod::getAngle()

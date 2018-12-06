@@ -125,6 +125,7 @@
   <ItemGroup>
     <ClCompile Include="Source Files\Camera.cpp" />
     <ClCompile Include="Source Files\ConnectingRod.cpp" />
+    <ClCompile Include="Source Files\CrankShaft.cpp" />
     <ClCompile Include="Source Files\Cylinder.cpp" />
     <ClCompile Include="Source Files\Piston.cpp" />
     <ClCompile Include="Source Files\Prism.cpp" />
@@ -140,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="Header Files\Camera.h" />
     <ClInclude Include="Header Files\ConnectingRod.h" />
+    <ClInclude Include="Header Files\CrankShaft.h" />
     <ClInclude Include="Header Files\Cylinder.h" />
     <ClInclude Include="Header Files\IndexBuffer.h" />
     <ClInclude Include="Header Files\InitMisc.h" />

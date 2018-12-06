@@ -16,15 +16,14 @@ class Cylinder
 {
 public:
 	Cylinder();
-	Cylinder(GLfloat heigth, GLfloat radius);
-	void set(GLfloat heigth, GLfloat radius);
+	Cylinder(GLfloat height, GLfloat radiusA, GLfloat radiusB = -1.0f);
+	void set(GLfloat heigth, GLfloat radiusA, GLfloat radiusB = -1.0f);
 	const VertexArray& getVao() const;
 	const IndexBuffer& getBaseIbo() const;
 	const IndexBuffer& getSideIbo() const;
 
 private:
-	//glm::mat4 modelMatrix;
-	void genVertices(vector<GLfloat> &vertices, GLfloat heigth, GLfloat radius);
+	void genVertices(vector<GLfloat> &vertices, GLfloat heigth, GLfloat radiusA, GLfloat radiusB = -1.0f);
 	void genBaseIndices(vector<GLuint> &indices, GLuint cnt);
 	void genSideIndices(vector<GLuint> &indices, GLuint cnt);
 	VertexBuffer vbo;
