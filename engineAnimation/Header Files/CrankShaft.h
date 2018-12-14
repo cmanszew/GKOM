@@ -13,9 +13,12 @@ using namespace std;
 class CrankShaft
 {
 public:
-	CrankShaft(GLfloat x, GLfloat spacing, GLuint pistonCnt);
+	CrankShaft();
 	CrankShaft(GLfloat x, GLfloat spacing, GLuint pistonCnt, const vector<GLfloat> &offsets);
+	void setup(GLfloat x, GLfloat spacing, GLuint pistonCnt, const vector<GLfloat> &offsets);
 	void setAngle(GLfloat angle);
+	void setMainShaft();
+	void setRodConnectors();
 	GLfloat getAngle();
 	const vector<glm::mat4> getMainShaft();
 	const vector<glm::mat4> getRodConnectors();
@@ -23,8 +26,6 @@ public:
 	//GLfloat getX();
 
 private:
-	void setMainShaft();
-	void setRodConnectors();
 	vector<glm::mat4> mainShaft;
 	vector<glm::mat4> rodConnectors;
 	

@@ -1,6 +1,6 @@
 #include "Piston.h"
 
-Piston::Piston(GLfloat x, GLfloat y, GLfloat offset)
+Piston::Piston(GLfloat x, GLfloat offset, GLfloat y)
 	: x(x), offset(offset), angle(0), model()
 {
 	model = glm::translate(model, glm::vec3(x, y, 0));
