@@ -38,47 +38,53 @@ void Renderer::drawPrism(const Prism &prism, ShaderProgram &theProgram)
 	drawTriangles(prism.getVao(), prism.getBaseIbo(), theProgram);
 }
 
-void Renderer::drawPiston(Piston &piston, Cylinder &cylinder, ShaderProgram &theProgram, glm::mat4 viewProjection, GLfloat crankRad, GLfloat conRodLen)
+void Renderer::drawPistons(Engine &engine, glm::mat4 viewProjection)
 {
-	const double crankPinY = crankRad * sin(piston.getAngle() + piston.getOffset());
-	const double crankPinZ = crankRad * cos(piston.getAngle() + piston.getOffset());
+	double crankPinY, crankPinZ;
 	glm::mat4 mvp;
 
-	piston.setY(GLfloat(crankPinY + sqrt(pow(conRodLen, 2) - pow(crankPinZ, 2))));
-	mvp = viewProjection * piston.getModelMatrix();
-	theProgram.setUniformMatrix4fv("uTransform", mvp);
-	drawCylinder(cylinder, theProgram);
+	for (auto piston : engine.getPistons()) {
+		crankPinY = EngConst::crankRad * sin(engine.getAngle() + piston.getOffset());
+		crankPinZ = EngConst::crankRad * cos(engine.getAngle() + piston.getOffset());
+		piston.setY(GLfloat(crankPinY + sqrt(pow(EngConst::conRodLen, 2) - pow(crankPinZ, 2))));
+		mvp = viewProjection * piston.getModelMatrix();
+		engine.getShader().setUniformMatrix4fv("uTransform", mvp);
+		drawCylinder(engine.getPistonCylinder(), engine.getShader());
+	}
 }
 
-void Renderer::drawConnectingRod(ConnectingRod &conRod, Prism &prism, ShaderProgram &theProgram, glm::mat4 viewProjection, GLfloat crankRad, GLfloat conRodLen)
+void Renderer::drawConnectingRods(Engine &engine, glm::mat4 viewProjection)
 {
-	const double crankPinY = crankRad * sin(conRod.getAngle() + conRod.getOffset());
-	const double crankPinZ = crankRad * cos(conRod.getAngle() + conRod.getOffset());
+	double crankPinY, crankPinZ;
 	glm::mat4 mvp;
 
-	conRod.setY(GLfloat(crankPinY + sqrt(pow(conRodLen, 2) - pow(crankPinZ, 2)) - 0.05f)); //TODO 0.05f == crankPinRad
-	conRod.setTilt(GLfloat(-asin(crankPinZ / conRodLen)));
-	mvp = viewProjection * conRod.getModelMatrix();
-	theProgram.setUniformMatrix4fv("uTransform", mvp);
-	drawPrism(prism, theProgram);
+	for (auto conRod : engine.getConRods()) {
+		crankPinY = EngConst::crankRad * sin(engine.getAngle() + conRod.getOffset());
+		crankPinZ = EngConst::crankRad * cos(engine.getAngle() + conRod.getOffset());
+		conRod.setY(GLfloat(crankPinY + sqrt(pow(EngConst::conRodLen, 2) - pow(crankPinZ, 2)) - EngConst::crankPinRad));
+		conRod.setTilt(GLfloat(-asin(crankPinZ / EngConst::conRodLen)));
+		mvp = viewProjection * conRod.getModelMatrix();
+		engine.getShader().setUniformMatrix4fv("uTransform", mvp);
+		drawPrism(engine.getConRodPrism(), engine.getShader());
+	}
 }
 
-void Renderer::drawCrankShaft(CrankShaft &crankShaft, Cylinder &cylinder, Cylinder &cylinder2, ShaderProgram &theProgram, glm::mat4 viewProjection)
+void Renderer::drawCrankShaft(Engine &engine, glm::mat4 viewProjection)
 {
-	vector<glm::mat4> vec = crankShaft.getMainShaft();
-	vector<glm::mat4> vec2 = crankShaft.getRodConnectors();
+	vector<glm::mat4> vec = engine.getCrankShaft().getMainShaft();
+	vector<glm::mat4> vec2 = engine.getCrankShaft().getRodConnectors();
 	glm::mat4 mvp;
 
 	for (unsigned int i = 0; i < vec.size(); ++i) {
 		mvp = viewProjection * vec[i];
-		theProgram.setUniformMatrix4fv("uTransform", mvp);
-		drawCylinder(cylinder, theProgram);
+		engine.getShader().setUniformMatrix4fv("uTransform", mvp);
+		drawCylinder(engine.getCrankShaftCylinder(), engine.getShader());
 	}
 
 	for (unsigned int i = 0; i < vec2.size(); ++i) {
 		mvp = viewProjection * vec2[i];
-		theProgram.setUniformMatrix4fv("uTransform", mvp);
-		drawCylinder(cylinder2, theProgram);
+		engine.getShader().setUniformMatrix4fv("uTransform", mvp);
+		drawCylinder(engine.getEllipticCylinder(), engine.getShader());
 	}
 }
 
