@@ -1,25 +1,11 @@
 #include "Engine.h"
 
-const GLfloat Engine::cylBore = 0.5f; //param
-const GLfloat Engine::pistonStroke = 0.6f; //param
-const GLfloat Engine::pistonHeight = 0.35f; //param
-const GLfloat Engine::conRodLen = 0.7f; //param
-
-const GLfloat Engine::conRodThck = 0.15f; //0.1f;
-const GLfloat Engine::crankPinRad = 0.05f; //TODO: pass this to Renderer::drawConnectingRod
-const GLfloat Engine::crankShaftRad = 0.12f;// 16f;
-
-const GLfloat Engine::cylSpacing = cylBore + 0.1f;
-const GLfloat Engine::piston1x = -5.0f / 2.0f * (cylSpacing);
-const GLfloat Engine::crankX = piston1x - cylSpacing / 2;
-const GLfloat Engine::crankRad = pistonStroke / 2.0f;
-const GLfloat Engine::crankMainShaftComponent = cylSpacing - 3 * conRodThck;
-
 Engine::Engine()
-	: pistonCylinder(pistonHeight, cylBore / 2),
-	conRodPrism(conRodLen, conRodThck),
-	crankShaftCylinder(crankMainShaftComponent, crankShaftRad),
-	ellipticCylinder(conRodThck, 1.9f *crankShaftRad, 2.4f * crankShaftRad),
+	: pistonCylinder(EngConst::pistonHeight, EngConst::cylBore / 2),
+	conRodPrism(EngConst::conRodLen, EngConst::conRodThck),
+	crankShaftCylinder(EngConst::crankMainShaftComponent, EngConst::crankShaftRad),
+	ellipticCylinder(EngConst::rodConnectorThck, EngConst::rodConnectorRadS, EngConst::rodConnectorRadL),
+	//ellipticCylinder(EngConst::rodConnectorThck, 1.9f * EngConst::crankShaftRad, 2.4f * EngConst::crankShaftRad),
 	shader("../engineAnimation/Source Files/shader.vert", "../engineAnimation/Source Files/shader.frag"),
 	angle(0)
 {
@@ -32,13 +18,13 @@ Engine::Engine()
 		0.0f,
 	};
 
-	for (int i = 0; i < offsets.size(); ++i)
-		pistons.push_back(Piston(piston1x + i * cylSpacing, offsets[i]));
+	for (unsigned int i = 0; i < offsets.size(); ++i)
+		pistons.push_back(Piston(EngConst::piston1x + i * EngConst::cylSpacing, offsets[i]));
 
 	for (unsigned int i = 0; i < pistons.size(); ++i)
 		conRods.push_back(ConnectingRod(pistons[i].getX(), pistons[i].getOffset()));
 
-	crankShaft.setup(crankX, cylSpacing, pistons.size(), offsets);
+	crankShaft.setup(pistons.size(), offsets);
 }
 
 const Cylinder& Engine::getPistonCylinder() const

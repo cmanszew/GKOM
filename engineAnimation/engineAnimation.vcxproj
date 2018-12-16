@@ -145,6 +145,7 @@
     <ClInclude Include="Header Files\CrankShaft.h" />
     <ClInclude Include="Header Files\Cylinder.h" />
     <ClInclude Include="Header Files\Engine.h" />
+    <ClInclude Include="Header Files\EngineConstants.h" />
     <ClInclude Include="Header Files\IndexBuffer.h" />
     <ClInclude Include="Header Files\InitMisc.h" />
     <ClInclude Include="Header Files\Piston.h" />

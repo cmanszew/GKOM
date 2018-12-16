@@ -12,6 +12,7 @@
 #include "ConnectingRod.h"
 #include "CrankShaft.h"
 #include "Engine.h"
+#include "EngineConstants.h"
 
 class Renderer
 {

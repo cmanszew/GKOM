@@ -7,6 +7,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Cylinder.h"
+#include "EngineConstants.h"
 
 using namespace std;
 
@@ -14,8 +15,8 @@ class CrankShaft
 {
 public:
 	CrankShaft();
-	CrankShaft(GLfloat x, GLfloat spacing, GLuint pistonCnt, const vector<GLfloat> &offsets);
-	void setup(GLfloat x, GLfloat spacing, GLuint pistonCnt, const vector<GLfloat> &offsets);
+	CrankShaft(GLuint pistonCnt, const vector<GLfloat> &offsets);
+	void setup(GLuint pistonCnt, const vector<GLfloat> &offsets);
 	void setAngle(GLfloat angle);
 	void setMainShaft();
 	void setRodConnectors();
@@ -23,15 +24,12 @@ public:
 	const vector<glm::mat4> getMainShaft();
 	const vector<glm::mat4> getRodConnectors();
 	const vector<GLfloat>& getOffset();
-	//GLfloat getX();
 
 private:
 	vector<glm::mat4> mainShaft;
 	vector<glm::mat4> rodConnectors;
 	
-	GLfloat x;
 	vector<GLfloat> offsets;
 	GLfloat angle;
-	GLfloat spacing;
 	GLuint pistonCnt;
 };
