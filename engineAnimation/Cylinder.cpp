@@ -57,7 +57,7 @@ void Cylinder::genVertices(vector<GLfloat> &vertices, GLfloat heigth, GLfloat ra
 		vertices.push_back(heigth / 2);
 		vertices.push_back(radiusB * (float)sin((double)angle * M_PI / 180.0));
 		vertices.push_back((float)angle / 360); // texture X interpolate
-		vertices.push_back((float)1); // texture Y
+		vertices.push_back((float)0.5f); // texture Y
 
 
 		vertices.push_back(radiusA * (float)cos((double)angle * M_PI / 180.0));

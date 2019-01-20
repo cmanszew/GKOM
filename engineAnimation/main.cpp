@@ -25,6 +25,7 @@ using namespace std;
 #include "Prism.h"
 #include "ConnectingRod.h"
 #include "CrankShaft.h"
+#include "TextureMgr.h"
 
 //const GLuint WIDTH = 800, HEIGHT = 800;
 const GLuint WIDTH = 1920, HEIGHT = 1080;
@@ -51,6 +52,22 @@ int main()
 		Cylinder elipse(0.2f, 0.3f, 0.4f);
 
 		glfwSetTime(0.0);
+
+		// GLuint piston_texture = TextureMgr().LoadMipmapTexture(0, "piston_tex.png");
+		GLuint tex;
+		glGenTextures(1, &tex);
+		glBindTexture(GL_TEXTURE_2D, tex);
+
+		int width, height;
+		unsigned char* image = SOIL_load_image("piston_tex.png", &width, &height, 0, SOIL_LOAD_RGB);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+		SOIL_free_image_data(image);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 		while (!glfwWindowShouldClose(window))
 		{
 			GLfloat time = (GLfloat)glfwGetTime();
