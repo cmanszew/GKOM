@@ -17,13 +17,13 @@ class Cylinder
 public:
 	Cylinder();
 	Cylinder(GLfloat height, GLfloat radiusA, GLfloat radiusB = -1.0f);
-	void set(GLfloat heigth, GLfloat radiusA, GLfloat radiusB = -1.0f);
+	virtual void set(GLfloat heigth, GLfloat radiusA, GLfloat radiusB = -1.0f);
 	const VertexArray& getVao() const;
 	const IndexBuffer& getBaseIbo() const;
 	const IndexBuffer& getSideIbo() const;
 
-private:
-	void genVertices(vector<GLfloat> &vertices, GLfloat heigth, GLfloat radiusA, GLfloat radiusB = -1.0f);
+protected:
+	virtual void genVertices(vector<GLfloat> &vertices, GLfloat heigth, GLfloat radiusA, GLfloat radiusB = -1.0f);
 	void genBaseIndices(vector<GLuint> &indices, GLuint cnt);
 	void genSideIndices(vector<GLuint> &indices, GLuint cnt);
 	VertexBuffer vbo;
