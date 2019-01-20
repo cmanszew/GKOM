@@ -97,6 +97,7 @@
     <ClInclude Include="Prism.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="shprogram.h" />
+    <ClInclude Include="TextureMgr.h" />
     <ClInclude Include="VertexArray.h" />
     <ClInclude Include="VertexBuffer.h" />
     <ClInclude Include="VertexBufferLayout.h" />
@@ -114,6 +115,7 @@
     <ClCompile Include="Prism.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="shprogram.cpp" />
+    <ClCompile Include="TextureMgr.cpp" />
     <ClCompile Include="VertexArray.cpp" />
     <ClCompile Include="VertexBuffer.cpp" />
     <ClCompile Include="VertexBufferLayout.cpp" />
