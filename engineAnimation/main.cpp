@@ -54,6 +54,7 @@ int main()
 		while (!glfwWindowShouldClose(window))
 		{
 			GLfloat time = (GLfloat)glfwGetTime();
+			time = 0.0f;								// DEBUG PAUSE IS HERE
 			glfwPollEvents();
 			renderer.clear();
 

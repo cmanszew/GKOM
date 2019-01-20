@@ -24,10 +24,10 @@ void Cylinder::set(GLfloat heigth, GLfloat radiusA, GLfloat radiusB)
 	vbl.pushGLfloat(2); // texture
 	vao.associateVertexBuffer(vbo, vbl);
 	
-	genBaseIndices(baseIndices, vertices.size() / 3 - 1);
+	genBaseIndices(baseIndices, vertices.size() / 5 - 1);
 	baseIbo.set(baseIndices.size(), &baseIndices[0], GL_STATIC_DRAW);
 
-	genSideIndices(sideIndices, vertices.size() / 3 - 2);
+	genSideIndices(sideIndices, vertices.size() / 5 - 2);
 	sideIbo.set(sideIndices.size(), &sideIndices[0], GL_STATIC_DRAW);
 }
 
@@ -69,13 +69,13 @@ void Cylinder::genVertices(vector<GLfloat> &vertices, GLfloat heigth, GLfloat ra
 	vertices.push_back(0.0f);
 	vertices.push_back(heigth / 2);
 	vertices.push_back(0.0f);
-	vertices.push_back((float)0); // texture X interpolate
-	vertices.push_back((float)0); // texture Y
+	vertices.push_back((float)0.5f); // texture X interpolate
+	vertices.push_back((float)1.0f); // texture Y
 
 	vertices.push_back(0.0f);
 	vertices.push_back(-heigth / 2);
 	vertices.push_back(0.0f);
-	vertices.push_back((float)0); // texture X interpolate
+	vertices.push_back((float)0.5f); // texture X interpolate
 	vertices.push_back((float)0); // texture Y
 }
 
