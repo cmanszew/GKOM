@@ -10,10 +10,8 @@
 class TextureMgr
 {
 public:
-	GLuint _texture;
 	TextureMgr();
 	TextureMgr(const char* fname);
 	~TextureMgr();
-	GLuint LoadMipmapTexture(GLuint texId, const char* fname);
 };
 

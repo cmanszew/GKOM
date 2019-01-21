@@ -5,6 +5,7 @@
 #include <vector>
 
 #include "Cylinder.h"
+#include "CylinderTextured.h"
 #include "Prism.h"
 #include "shprogram.h"
 #include "Piston.h"
@@ -33,7 +34,7 @@ public:
 private:
 	vector<GLfloat> offsets;
 
-	Cylinder pistonCylinder;
+	CylinderTextured pistonCylinder;
 	vector<Piston> pistons;
 
 	Prism conRodPrism;

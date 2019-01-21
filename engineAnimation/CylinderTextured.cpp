@@ -7,6 +7,11 @@ CylinderTextured::CylinderTextured()
 }
 
 
+CylinderTextured::CylinderTextured(GLfloat height, GLfloat radiusA, GLfloat radiusB)
+{
+	set(height, radiusA, radiusB);
+}
+
 CylinderTextured::~CylinderTextured()
 {
 }
