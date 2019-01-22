@@ -38,33 +38,55 @@ void CylinderTextured::set(GLfloat heigth, GLfloat radiusA, GLfloat radiusB)
 
 void CylinderTextured::genVertices(vector<GLfloat> &vertices, GLfloat heigth, GLfloat radiusA, GLfloat radiusB)
 {
-	const int angle_inc = 5;
-
 	radiusB = radiusB < 0.0f ? radiusA : radiusB;
 
-	for (int angle = 0; angle < 360; angle += angle_inc) {
+	for (int angle = 0; angle <= 360; angle += angle_inc) {
 		vertices.push_back(radiusA * (float)cos((double)angle * M_PI / 180.0));
 		vertices.push_back(heigth / 2);
 		vertices.push_back(radiusB * (float)sin((double)angle * M_PI / 180.0));
-		vertices.push_back((float)angle / 360); // texture X interpolate
+		vertices.push_back(abs(((float)angle / 360) - 0.5f)); // texture X interpolate
 		vertices.push_back((float)0.5f); // texture Y
 
 
 		vertices.push_back(radiusA * (float)cos((double)angle * M_PI / 180.0));
 		vertices.push_back(-heigth / 2);
 		vertices.push_back(radiusB * (float)sin((double)angle * M_PI / 180.0));
-		vertices.push_back((float)angle / 360); // texture X interpolate
+		vertices.push_back(abs(((float)angle / 360) - 0.5f)); // texture X interpolate
 		vertices.push_back((float)0); // texture Y
 	}
+
+	for (int angle = 0; angle <= 360; angle += angle_inc) {
+		vertices.push_back(radiusA * (float)cos((double)angle * M_PI / 180.0));
+		vertices.push_back(heigth / 2);
+		vertices.push_back(radiusB * (float)sin((double)angle * M_PI / 180.0));
+		vertices.push_back(0.0f); // texture X interpolate
+		vertices.push_back((float)0.0f); // texture Y
+
+
+		vertices.push_back(radiusA * (float)cos((double)angle * M_PI / 180.0));
+		vertices.push_back(-heigth / 2);
+		vertices.push_back(radiusB * (float)sin((double)angle * M_PI / 180.0));
+		vertices.push_back(0.0f); // texture X interpolate
+		vertices.push_back((float)0); // texture Y
+	}
+
 	vertices.push_back(0.0f);
 	vertices.push_back(heigth / 2);
 	vertices.push_back(0.0f);
-	vertices.push_back((float)0.5f); // texture X interpolate
-	vertices.push_back((float)1.0f); // texture Y
+	vertices.push_back((float)0.0f); // texture X interpolate
+	vertices.push_back((float)0.0f); // texture Y
 
 	vertices.push_back(0.0f);
 	vertices.push_back(-heigth / 2);
 	vertices.push_back(0.0f);
-	vertices.push_back((float)0.5f); // texture X interpolate
+	vertices.push_back((float)0.0f); // texture X interpolate
 	vertices.push_back((float)0); // texture Y
+}
+
+void CylinderTextured::genBaseIndices(vector<GLuint> &indices, GLuint cnt)
+{
+	Cylinder::genBaseIndices(indices, cnt);
+	for (auto& index : indices) {
+		index += ((360 / angle_inc) + 1) * 2;
+	}
 }

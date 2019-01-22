@@ -10,5 +10,6 @@ public:
 	~CylinderTextured();
 	virtual void set(GLfloat heigth, GLfloat radiusA, GLfloat radiusB) override;
 	virtual void genVertices(vector<GLfloat> &vertices, GLfloat heigth, GLfloat radiusA, GLfloat radiusB) override;
+	virtual void genBaseIndices(vector<GLuint> &indices, GLuint cnt) override;
 };
 

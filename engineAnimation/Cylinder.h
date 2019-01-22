@@ -21,10 +21,11 @@ public:
 	const VertexArray& getVao() const;
 	const IndexBuffer& getBaseIbo() const;
 	const IndexBuffer& getSideIbo() const;
+	const int angle_inc = 5;
 
 protected:
 	virtual void genVertices(vector<GLfloat> &vertices, GLfloat heigth, GLfloat radiusA, GLfloat radiusB = -1.0f);
-	void genBaseIndices(vector<GLuint> &indices, GLuint cnt);
+	virtual void genBaseIndices(vector<GLuint> &indices, GLuint cnt);
 	void genSideIndices(vector<GLuint> &indices, GLuint cnt);
 	VertexBuffer vbo;
 	VertexArray vao;

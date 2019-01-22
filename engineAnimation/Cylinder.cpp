@@ -47,8 +47,6 @@ const IndexBuffer& Cylinder::getSideIbo() const
 
 void Cylinder::genVertices(vector<GLfloat> &vertices, GLfloat heigth, GLfloat radiusA, GLfloat radiusB)
 {
-	const int angle_inc = 5;
-
 	radiusB = radiusB < 0.0f ? radiusA : radiusB;
 
 	for (int angle = 0; angle < 360; angle += angle_inc) {

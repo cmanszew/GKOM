@@ -31,7 +31,7 @@ using namespace std;
 const GLuint WIDTH = 1920, HEIGHT = 1080;
 
 const GLfloat secToRevolution = GLfloat(2 * M_PI / 60);
-const GLfloat rpm = 140.0f; //TODO - make this configurable
+const GLfloat rpm = 30.0f; //TODO - make this configurable
 
 int main()
 {
@@ -53,17 +53,19 @@ int main()
 
 		glfwSetTime(0.0);
 
-		TextureMgr("piston_tex.png");
+		//TextureMgr("piston_tex.png");
+		TextureMgr("droga_stal2.jpg");
 		
 		while (!glfwWindowShouldClose(window))
 		{
 			GLfloat time = (GLfloat)glfwGetTime();
 			glfwPollEvents();
-			renderer.clear();
+			renderer.clear(0.53, 0.81, 0.92);
 
 			view = camera.getViewMatrix();
 
 			engine.setAngle(rpm * (secToRevolution * time));
+
 			renderer.drawPistons(engine, projection * view);
 			renderer.drawConnectingRods(engine, projection * view);
 			renderer.drawCrankShaft(engine, projection * view);

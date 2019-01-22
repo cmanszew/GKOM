@@ -24,9 +24,9 @@ void Renderer::drawTriangleStrip(const VertexArray &vao, const IndexBuffer &ibo,
 
 void Renderer::drawCylinder(const Cylinder &cylinder, ShaderProgram &theProgram)
 {
-	theProgram.setUniform4f("uColor", 0.82f, 0.82f, 0.85f, 1.0f);
+	theProgram.setUniform4f("uColor", 0.87f, 0.87f, 0.92f, 1.0f);
 	drawTriangles(cylinder.getVao(), cylinder.getBaseIbo(), theProgram);
-	theProgram.setUniform4f("uColor", 0.92f, 0.92f, 0.95f, 1.0f);
+	theProgram.setUniform4f("uColor", 1.0f, 1.0f, 1.0f, 1.0f);
 	drawTriangleStrip(cylinder.getVao(), cylinder.getSideIbo(), theProgram);
 }
 
