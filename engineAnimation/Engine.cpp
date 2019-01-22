@@ -6,7 +6,7 @@ Engine::Engine()
 	crankShaftCylinder(EngConst::crankMainShaftComponent, EngConst::crankShaftRad),
 	ellipticCylinder(EngConst::rodConnectorThck, EngConst::rodConnectorRadS, EngConst::rodConnectorRadL),
 	//ellipticCylinder(EngConst::rodConnectorThck, 1.9f * EngConst::crankShaftRad, 2.4f * EngConst::crankShaftRad),
-	shader("shader.vert", "shader.frag"),
+	shader("engineShader.vert", "engineShader.frag"),
 	angle(0)
 {
 	offsets = {

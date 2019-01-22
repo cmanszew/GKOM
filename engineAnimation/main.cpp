@@ -26,12 +26,13 @@ using namespace std;
 #include "ConnectingRod.h"
 #include "CrankShaft.h"
 #include "TextureMgr.h"
+#include "Ground.h"
 
 //const GLuint WIDTH = 800, HEIGHT = 800;
 const GLuint WIDTH = 1920, HEIGHT = 1080;
 
 const GLfloat secToRevolution = GLfloat(2 * M_PI / 60);
-const GLfloat rpm = 140.0f; //TODO - make this configurable
+const GLfloat rpm = 100.0f; //TODO - make this configurable
 
 int main()
 {
@@ -48,6 +49,7 @@ int main()
 
 		Renderer renderer;
 		Engine engine;
+		Ground ground;
 
 		Cylinder elipse(0.2f, 0.3f, 0.4f);
 
@@ -67,6 +69,7 @@ int main()
 			renderer.drawPistons(engine, projection * view);
 			renderer.drawConnectingRods(engine, projection * view);
 			renderer.drawCrankShaft(engine, projection * view);
+			renderer.drawGround(ground, projection * view);
 
 			glfwSwapBuffers(window);
 		}

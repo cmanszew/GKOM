@@ -92,6 +92,8 @@
     <ClInclude Include="CylinderTextured.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="EngineConstants.h" />
+    <ClInclude Include="GlobalConstants.h" />
+    <ClInclude Include="Ground.h" />
     <ClInclude Include="IndexBuffer.h" />
     <ClInclude Include="InitMisc.h" />
     <ClInclude Include="Piston.h" />
@@ -110,6 +112,7 @@
     <ClCompile Include="Cylinder.cpp" />
     <ClCompile Include="CylinderTextured.cpp" />
     <ClCompile Include="Engine.cpp" />
+    <ClCompile Include="Ground.cpp" />
     <ClCompile Include="IndexBuffer.cpp" />
     <ClCompile Include="InitMisc.cpp" />
     <ClCompile Include="main.cpp" />
@@ -123,8 +126,10 @@
     <ClCompile Include="VertexBufferLayout.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader.frag" />
-    <None Include="shader.vert" />
+    <None Include="engineShader.frag" />
+    <None Include="engineShader.vert" />
+    <None Include="groundShader.Frag" />
+    <None Include="groundShader.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="piston_tex.png" />

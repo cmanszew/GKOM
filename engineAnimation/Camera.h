@@ -19,6 +19,7 @@ public:
 
 private:
 	static glm::vec3 cameraPos;
+	static glm::vec3 nextCameraPos;
 	static glm::vec3 cameraTarget;
 	static glm::vec3 cameraUp;
 	static glm::vec3 cameraRight;

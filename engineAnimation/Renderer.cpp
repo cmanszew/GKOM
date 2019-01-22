@@ -1,4 +1,5 @@
 #include "Renderer.h"
+#include "GlobalConstants.h"
 
 void Renderer::drawTriangles(const VertexArray &vao, const IndexBuffer &ibo, const ShaderProgram &theProgram) const
 {
@@ -67,6 +68,15 @@ void Renderer::drawConnectingRods(Engine &engine, glm::mat4 viewProjection)
 		engine.getShader().setUniformMatrix4fv("uTransform", mvp);
 		drawPrism(engine.getConRodPrism(), engine.getShader());
 	}
+}
+
+void Renderer::drawGround(Ground &ground, glm::mat4 viewProjection)
+{
+	glm::mat4 mvp;
+
+	mvp = viewProjection * glm::translate(glm::mat4(), glm::vec3(0.0f, GlobConst::GROUND_OFFSET, 0.0f));
+	ground.getShader().setUniformMatrix4fv("uTransform", mvp);
+	drawPrism(ground.getGroundPrism(), ground.getShader());
 }
 
 void Renderer::drawCrankShaft(Engine &engine, glm::mat4 viewProjection)
