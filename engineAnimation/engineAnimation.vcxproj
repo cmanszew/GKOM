@@ -98,6 +98,7 @@
     <ClInclude Include="InitMisc.h" />
     <ClInclude Include="Piston.h" />
     <ClInclude Include="Prism.h" />
+    <ClInclude Include="PrismTextured.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="shprogram.h" />
     <ClInclude Include="TextureMgr.h" />
@@ -118,6 +119,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Piston.cpp" />
     <ClCompile Include="Prism.cpp" />
+    <ClCompile Include="PrismTextured.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="shprogram.cpp" />
     <ClCompile Include="TextureMgr.cpp" />
@@ -132,6 +134,8 @@
     <None Include="groundShader.vert" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="bruk.jpg" />
+    <Image Include="bruk2.jpg" />
     <Image Include="piston_tex.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

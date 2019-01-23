@@ -12,7 +12,8 @@ public:
 	GLuint getProgramId() const;
 	void setUniform4f(const GLchar *name, GLfloat v0, GLfloat v1, GLfloat v2, GLfloat v3);
 	void setUniformMatrix4fv(const GLchar *name, const glm::mat4 &matrix);
-
+	void setUniform1i(const GLchar *name, GLint value);
+	
 private:
 	GLuint programId;
 	string readShaderCode(const GLchar* shaderPath);

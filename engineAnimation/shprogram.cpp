@@ -41,6 +41,13 @@ ShaderProgram::ShaderProgram(const GLchar* vertexPath, const GLchar* fragmentPat
 	glDeleteShader(fragmentId);
 }
 
+void ShaderProgram::setUniform1i(const GLchar *name, GLint value)
+{
+	use();
+	glUniform1i(glGetUniformLocation(programId, name), value);
+	useStop();
+}
+
 void ShaderProgram::use() const
 {
 	glUseProgram(getProgramId());

@@ -5,9 +5,9 @@ uniform vec4 uColor;
 
 out vec4 color;
 
-uniform sampler2D Texture0;
+uniform sampler2D pistonSampler;
 
 void main()
 {
-    color = texture(Texture0, TexCoord) * vec4(uColor);
+    color = texture(pistonSampler, TexCoord) * vec4(uColor);
 }

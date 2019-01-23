@@ -44,6 +44,10 @@ void Renderer::drawPistons(Engine &engine, glm::mat4 viewProjection)
 	double crankPinY, crankPinZ;
 	glm::mat4 mvp;
 
+	auto shader = engine.getShader();
+
+	shader.setUniform1i("pistonSampler", 0);
+
 	for (auto piston : engine.getPistons()) {
 		crankPinY = EngConst::crankRad * sin(engine.getAngle() + piston.getOffset());
 		crankPinZ = EngConst::crankRad * cos(engine.getAngle() + piston.getOffset());
@@ -74,9 +78,13 @@ void Renderer::drawGround(Ground &ground, glm::mat4 viewProjection)
 {
 	glm::mat4 mvp;
 
+	auto shader = ground.getShader();
+
+	shader.setUniform1i("groundSampler", 1);
+
 	mvp = viewProjection * glm::translate(glm::mat4(), glm::vec3(0.0f, GlobConst::GROUND_OFFSET, 0.0f));
 	ground.getShader().setUniformMatrix4fv("uTransform", mvp);
-	drawPrism(ground.getGroundPrism(), ground.getShader());
+	drawPrism(ground.getGroundPrism(), shader);
 }
 
 void Renderer::drawCrankShaft(Engine &engine, glm::mat4 viewProjection)
