@@ -2,11 +2,11 @@
 
 using namespace std;
 
-Cylinder::Cylinder()
-{
-}
+Cylinder::Cylinder() : Cylinder("shaderDef.vert", "shaderDef.frag") {}
 
-Cylinder::Cylinder(GLfloat height, GLfloat radiusA, GLfloat radiusB)
+Cylinder::Cylinder(string vertexPath, string fragmentPath) : shader(vertexPath.c_str(), fragmentPath.c_str()) {}
+
+Cylinder::Cylinder(GLfloat height, GLfloat radiusA, GLfloat radiusB) : Cylinder("shaderDef.vert", "shaderDef.frag")
 {
 	set(height, radiusA, radiusB);
 }
@@ -47,8 +47,6 @@ const IndexBuffer& Cylinder::getSideIbo() const
 
 void Cylinder::genVertices(vector<GLfloat> &vertices, GLfloat heigth, GLfloat radiusA, GLfloat radiusB)
 {
-	const int angle_inc = 5;
-
 	radiusB = radiusB < 0.0f ? radiusA : radiusB;
 
 	for (int angle = 0; angle < 360; angle += angle_inc) {

@@ -20,9 +20,8 @@ class Renderer
 public:
 	void drawTriangles(const VertexArray &vao, const IndexBuffer &ibo, const ShaderProgram &theProgram) const;
 	void drawTriangleStrip(const VertexArray &vao, const IndexBuffer &ibo, const ShaderProgram &theProgram) const;
-	void drawCylinder(const Cylinder &cylinder, ShaderProgram &theProgram);
-	//void drawCubicFloor(const Cube &cube, ShaderProgram &theProgram);
-	void drawPrism(const Prism &prism, ShaderProgram &theProgram);
+	void drawCylinder(Cylinder &cylinder);
+	void drawPrism(Prism &prism);
 	void drawPistons(Engine &engine, glm::mat4 viewProjection);
 	void drawConnectingRods(Engine &engine, glm::mat4 viewProjection);
 	void drawGround(Ground & ground, glm::mat4 viewProjection);
