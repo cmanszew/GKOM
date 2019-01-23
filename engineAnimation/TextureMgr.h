@@ -11,7 +11,7 @@
 class TextureMgr
 {
 public:
-	void addTexture(const char* fileName);
+	void addTexture(const char* fileName, int samplingType);
 	TextureMgr(GLuint currentTextures);
 	~TextureMgr();
 

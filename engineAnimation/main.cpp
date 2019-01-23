@@ -57,8 +57,8 @@ int main()
 
 		glfwSetTime(0.0);
 
-		textureManager.addTexture("piston_tex.png");
-		textureManager.addTexture("bruk2.jpg");
+		textureManager.addTexture("piston_tex.png", GL_MIRRORED_REPEAT);
+		textureManager.addTexture("bruk2.jpg", GL_MIRRORED_REPEAT);
 		
 		while (!glfwWindowShouldClose(window))
 		{
