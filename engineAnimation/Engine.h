@@ -19,12 +19,12 @@ class Engine
 {
 public:
 	Engine();
-	const Cylinder& getPistonCylinder() const;
+	Cylinder& getPistonCylinder();
 	const vector<Piston>& getPistons() const;
-	const Prism& getConRodPrism() const;
+	Prism& getConRodPrism();
 	const vector<ConnectingRod>& getConRods() const;
-	const Cylinder& getCrankShaftCylinder() const;
-	const Cylinder& getEllipticCylinder() const;
+	Cylinder& getCrankShaftCylinder();
+	Cylinder& getEllipticCylinder();
 	CrankShaft& getCrankShaft();
 
 	ShaderProgram& getShader();
@@ -40,8 +40,8 @@ private:
 	Prism conRodPrism;
 	vector<ConnectingRod> conRods;
 
-	Cylinder crankShaftCylinder;
-	Cylinder ellipticCylinder;
+	CylinderTextured crankShaftCylinder;
+	CylinderTextured ellipticCylinder;
 	CrankShaft crankShaft;
 
 	ShaderProgram shader;

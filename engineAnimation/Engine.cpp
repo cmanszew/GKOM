@@ -6,7 +6,7 @@ Engine::Engine()
 	crankShaftCylinder(EngConst::crankMainShaftComponent, EngConst::crankShaftRad),
 	ellipticCylinder(EngConst::rodConnectorThck, EngConst::rodConnectorRadS, EngConst::rodConnectorRadL),
 	//ellipticCylinder(EngConst::rodConnectorThck, 1.9f * EngConst::crankShaftRad, 2.4f * EngConst::crankShaftRad),
-	shader("shader.vert", "shader.frag"),
+	shader("shaderTex.vert", "shaderTex.frag"),
 	angle(0)
 {
 	offsets = {
@@ -27,7 +27,7 @@ Engine::Engine()
 	crankShaft.setup(pistons.size(), offsets);
 }
 
-const Cylinder& Engine::getPistonCylinder() const
+Cylinder& Engine::getPistonCylinder()
 {
 	return pistonCylinder;
 }
@@ -37,7 +37,7 @@ const vector<Piston>& Engine::getPistons() const
 	return pistons;
 }
 
-const Prism& Engine::getConRodPrism() const
+Prism& Engine::getConRodPrism()
 {
 	return conRodPrism;
 }
@@ -63,12 +63,12 @@ GLfloat Engine::getAngle()
 	return angle;
 }
 
-const Cylinder& Engine::getCrankShaftCylinder() const
+Cylinder& Engine::getCrankShaftCylinder()
 {
 	return crankShaftCylinder;
 }
 
-const Cylinder& Engine::getEllipticCylinder() const
+Cylinder& Engine::getEllipticCylinder()
 {
 	return ellipticCylinder;
 }

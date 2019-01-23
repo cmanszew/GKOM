@@ -123,11 +123,14 @@
     <ClCompile Include="VertexBufferLayout.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="shader.frag" />
-    <None Include="shader.vert" />
+    <None Include="shaderDef.frag" />
+    <None Include="shaderDef.vert" />
+    <None Include="shaderTex.frag" />
+    <None Include="shaderTex.vert" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="piston_tex.png" />
+    <Image Include="stal_swiatlo.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

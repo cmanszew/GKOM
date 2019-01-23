@@ -31,7 +31,7 @@ using namespace std;
 const GLuint WIDTH = 1920, HEIGHT = 1080;
 
 const GLfloat secToRevolution = GLfloat(2 * M_PI / 60);
-const GLfloat rpm = 30.0f; //TODO - make this configurable
+const GLfloat rpm = 130.0f; //TODO - make this configurable
 
 int main()
 {
@@ -54,7 +54,7 @@ int main()
 		glfwSetTime(0.0);
 
 		//TextureMgr("piston_tex.png");
-		TextureMgr("droga_stal2.jpg");
+		TextureMgr("stal_swiatlo.png");
 		
 		while (!glfwWindowShouldClose(window))
 		{

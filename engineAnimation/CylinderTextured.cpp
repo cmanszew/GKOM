@@ -2,12 +2,11 @@
 
 
 
-CylinderTextured::CylinderTextured()
+CylinderTextured::CylinderTextured() : Cylinder("shaderTex.vert", "shaderTex.frag")
 {
 }
 
-
-CylinderTextured::CylinderTextured(GLfloat height, GLfloat radiusA, GLfloat radiusB)
+CylinderTextured::CylinderTextured(GLfloat height, GLfloat radiusA, GLfloat radiusB) : Cylinder("shaderTex.vert", "shaderTex.frag")
 {
 	set(height, radiusA, radiusB);
 }

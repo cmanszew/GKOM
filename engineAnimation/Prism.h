@@ -9,15 +9,18 @@
 #include "IndexBuffer.h"
 #include "VertexArray.h"
 #include "VertexBufferLayout.h"
+#include "shprogram.h"
 
 class Prism
 {
 public:
+	Prism(string vertPath, string fragmentPath);
 	Prism(GLfloat length = 0.8, GLfloat thickness = 0.1f, GLfloat topW = 0.1f, GLfloat bottomW = 0.2f);
 	void set(GLfloat lenght, GLfloat thickness, GLfloat topW, GLfloat bottomW);
 	const VertexArray& getVao() const;
 	const IndexBuffer& getBaseIbo() const;
 	const IndexBuffer& getSideIbo() const;
+	ShaderProgram& getShader() { return shader; }
 
 private:
 	void genVertices(vector<GLfloat> &vertices, GLfloat thickness, GLfloat length,
@@ -28,4 +31,5 @@ private:
 	VertexArray vao;
 	IndexBuffer baseIbo;
 	IndexBuffer sideIbo;
+	ShaderProgram shader;
 };

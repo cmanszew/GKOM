@@ -2,11 +2,11 @@
 
 using namespace std;
 
-Cylinder::Cylinder()
-{
-}
+Cylinder::Cylinder() : Cylinder("shaderDef.vert", "shaderDef.frag") {}
 
-Cylinder::Cylinder(GLfloat height, GLfloat radiusA, GLfloat radiusB)
+Cylinder::Cylinder(string vertexPath, string fragmentPath) : shader(vertexPath.c_str(), fragmentPath.c_str()) {}
+
+Cylinder::Cylinder(GLfloat height, GLfloat radiusA, GLfloat radiusB) : Cylinder("shaderDef.vert", "shaderDef.frag")
 {
 	set(height, radiusA, radiusB);
 }
