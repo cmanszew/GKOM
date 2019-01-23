@@ -15,6 +15,7 @@ class Prism
 {
 public:
 	Prism(string vertPath, string fragmentPath);
+	Prism(ShaderProgram& theProgram);
 	Prism(GLfloat length = 0.8, GLfloat thickness = 0.1f, GLfloat topW = 0.1f, GLfloat bottomW = 0.2f);
 	virtual void set(GLfloat lenght, GLfloat thickness, GLfloat topW, GLfloat bottomW);
 	const VertexArray& getVao() const;

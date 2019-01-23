@@ -1,6 +1,7 @@
 #include "PrismTextured.h"
 
 PrismTextured::PrismTextured(GLfloat length, GLfloat thickness, GLfloat topW, GLfloat bottomW)
+	: Prism("groundShader.vert", "groundShader.frag")
 {
 	set(length, thickness, topW, bottomW);
 }

@@ -57,7 +57,7 @@ int main()
 
 		glfwSetTime(0.0);
 
-		textureManager.addTexture("piston_tex.png", GL_MIRRORED_REPEAT);
+		textureManager.addTexture("stal_swiatlo.png", GL_MIRRORED_REPEAT);
 		textureManager.addTexture("bruk2.jpg", GL_MIRRORED_REPEAT);
 		
 		while (!glfwWindowShouldClose(window))

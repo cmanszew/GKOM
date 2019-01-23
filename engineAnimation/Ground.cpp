@@ -10,7 +10,7 @@ ShaderProgram& Ground::getShader()
 	return shader;
 }
 
-const PrismTextured& Ground::getGroundPrism() const
+ PrismTextured& Ground::getGroundPrism()
 {
 	return groundPrism;
 }

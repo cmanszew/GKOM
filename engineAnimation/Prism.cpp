@@ -2,6 +2,8 @@
 
 Prism::Prism(string vertPath, string fragmentPath) : shader(vertPath.c_str(), fragmentPath.c_str()) {}
 
+Prism::Prism(ShaderProgram& theProgram) : shader(theProgram) {}
+
 Prism::Prism(GLfloat length, GLfloat thickness, GLfloat topW, GLfloat bottomW) : Prism("shaderDef.vert", "shaderDef.frag")
 {
 	set(length, thickness, topW, bottomW);

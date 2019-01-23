@@ -80,13 +80,14 @@ void Renderer::drawGround(Ground &ground, glm::mat4 viewProjection)
 {
 	glm::mat4 mvp;
 
-	auto shader = ground.getShader();
+	auto& prism = ground.getGroundPrism();
+	auto& shader = prism.getShader();
 
 	shader.setUniform1i("groundSampler", 1);
 
 	mvp = viewProjection * glm::translate(glm::mat4(), glm::vec3(0.0f, GlobConst::GROUND_OFFSET, 0.0f));
-	ground.getShader().setUniformMatrix4fv("uTransform", mvp);
-	drawPrism(ground.getGroundPrism(), shader);
+	shader.setUniformMatrix4fv("uTransform", mvp);
+	drawPrism(prism);
 }
 
 void Renderer::drawCrankShaft(Engine &engine, glm::mat4 viewProjection)
