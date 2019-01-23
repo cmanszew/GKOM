@@ -9,7 +9,7 @@ kamerę wprawiamy przy użyciu klawiszy strzałek, natomiast przy użyciu "w"/"s
 kamerę do obiektu.
 
 
-
+http://galeranew.ii.pw.edu.pl:8100/GKOM.18z/ZS1-Dzwig/blob/74cd54ed788c757c4e5a7e2f2ca52d67a59e4443/silnik.PNG
 
 Źródła:
 - http://www.epi-eng.com/piston_engine_technology/piston_motion_basics.htm?fbclid=IwAR1ORHp0Ah655c_DM2CVJ9ZfTlf3bIcrL8Q8euuu5C_10WA1JJlNs9VnaNU
