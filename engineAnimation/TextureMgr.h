@@ -5,13 +5,17 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <exception>
+#include "shprogram.h"
 
 
 class TextureMgr
 {
 public:
-	TextureMgr();
-	TextureMgr(const char* fname);
+	void addTexture(const char* fileName);
+	TextureMgr(GLuint currentTextures);
 	~TextureMgr();
+
+private:
+	GLuint currentTextures;
 };
 

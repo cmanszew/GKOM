@@ -50,12 +50,15 @@ int main()
 		Renderer renderer;
 		Engine engine;
 		Ground ground;
+		
+		TextureMgr textureManager(0);
 
 		Cylinder elipse(0.2f, 0.3f, 0.4f);
 
 		glfwSetTime(0.0);
 
-		TextureMgr("piston_tex.png");
+		textureManager.addTexture("piston_tex.png");
+		textureManager.addTexture("bruk2.jpg");
 		
 		while (!glfwWindowShouldClose(window))
 		{
@@ -70,7 +73,6 @@ int main()
 			renderer.drawConnectingRods(engine, projection * view);
 			renderer.drawCrankShaft(engine, projection * view);
 			renderer.drawGround(ground, projection * view);
-
 			glfwSwapBuffers(window);
 		}
 	}
