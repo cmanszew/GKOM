@@ -9,7 +9,7 @@ namespace EngConst
 	const GLfloat conRodLen = 0.7f; //param
 
 	const GLfloat conRodThck = 0.15f; //0.1f;
-	const GLfloat rodConnectorThck = 0.15f;
+	const GLfloat rodConnectorThck = 0.10f;
 	const GLfloat crankPinRad = 0.05f;
 	const GLfloat crankShaftRad = 0.12f;// 16f;
 

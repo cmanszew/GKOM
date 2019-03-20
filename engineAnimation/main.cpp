@@ -26,12 +26,14 @@ using namespace std;
 #include "ConnectingRod.h"
 #include "CrankShaft.h"
 #include "TextureMgr.h"
+#include "VEngine.h"
+#include "inlineEngine.h"
 
 //const GLuint WIDTH = 800, HEIGHT = 800;
 const GLuint WIDTH = 1920, HEIGHT = 1080;
 
 const GLfloat secToRevolution = GLfloat(2 * M_PI / 60);
-const GLfloat rpm = 130.0f; //TODO - make this configurable
+const GLfloat rpm = 100.0f; //TODO - make this configurable
 
 int main()
 {
@@ -47,7 +49,8 @@ int main()
 		//projection = glm::ortho(-2.0f, 2.0f, -2.0f, 2.0f, 0.01f, 100.0f);
 
 		Renderer renderer;
-		Engine engine;
+		//inlineEngine engine;
+		VEngine engine(glm::radians(90.0f));
 
 		Cylinder elipse(0.2f, 0.3f, 0.4f);
 

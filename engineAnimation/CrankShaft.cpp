@@ -9,10 +9,11 @@ CrankShaft::CrankShaft(GLuint pistonCnt, const vector<GLfloat> &offsets)
 	setup(pistonCnt, offsets);
 }
 
-void CrankShaft::setup(GLuint pistonCnt, const vector<GLfloat> &offsets)
+void CrankShaft::setup(GLuint pistonCnt, const vector<GLfloat> &offsets, GLfloat rodsPerConnector)
 {
 	this->pistonCnt = pistonCnt;
 	this->offsets = offsets;
+	this->rodsPerConnector = rodsPerConnector;
 }
 
 void CrankShaft::setAngle(GLfloat angle)
@@ -46,13 +47,13 @@ void CrankShaft::setRodConnectors()
 	rodConnectors.clear();
 
 	for (GLuint i = 0; i < pistonCnt; ++i) {
-		addX = (EngConst::crankMainShaftComponent + EngConst::rodConnectorThck) / 2.0f;
+		addX = (-(this->rodsPerConnector - 1.0f) * EngConst::conRodThck + EngConst::crankMainShaftComponent + EngConst::rodConnectorThck) / 2.0f;
 		trans = glm::translate(glm::mat4(), glm::vec3(baseX + addX, 0.0f, EngConst::crankShaftRad));
 		//trans = glm::translate(glm::mat4(), glm::vec3(EngConst::crankX + (GLfloat)i * EngConst::cylSpacing + 0.15f, 0.0f, 0.12f)); //TODO - sort those magic nubers out!!!!
 		rot2 = glm::rotate(glm::mat4(), -angle - offsets[i], glm::vec3(1.0f, 0.0f, 0.0f));
 		rodConnectors.push_back(rot2 * trans * rot);
 
-		addX += EngConst::conRodThck + EngConst::rodConnectorThck;
+		addX += (this->rodsPerConnector - 1.0f) * EngConst::conRodThck + EngConst::conRodThck + EngConst::rodConnectorThck;
 		trans = glm::translate(glm::mat4(), glm::vec3(baseX + addX, 0.0f, EngConst::crankShaftRad));
 		//trans = glm::translate(glm::mat4(), glm::vec3(EngConst::crankX + (GLfloat)i * EngConst::cylSpacing + 0.45f, 0.0f, 0.12f)); //TODO - sort those magic nubers out!!!!
 		rot2 = glm::rotate(glm::mat4(), -angle - offsets[i], glm::vec3(1.0f, 0.0f, 0.0f));

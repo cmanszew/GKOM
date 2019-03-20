@@ -25,7 +25,7 @@ void Renderer::drawTriangleStrip(const VertexArray &vao, const IndexBuffer &ibo,
 void Renderer::drawCylinder(Cylinder &cylinder)
 {
 	auto& shader = cylinder.getShader();
-	shader.setUniform4f("uColor", 0.87f, 0.87f, 0.92f, 1.0f);
+	shader.setUniform4f("uColor", 1.0f, 1.0f, 1.0f, 1.0f);
 	drawTriangles(cylinder.getVao(), cylinder.getBaseIbo(), shader);
 	shader.setUniform4f("uColor", 1.0f, 1.0f, 1.0f, 1.0f);
 	drawTriangleStrip(cylinder.getVao(), cylinder.getSideIbo(), shader);
@@ -42,13 +42,10 @@ void Renderer::drawPrism(Prism &prism)
 
 void Renderer::drawPistons(Engine &engine, glm::mat4 viewProjection)
 {
-	double crankPinY, crankPinZ;
 	glm::mat4 mvp;
 
 	for (auto piston : engine.getPistons()) {
-		crankPinY = EngConst::crankRad * sin(engine.getAngle() + piston.getOffset());
-		crankPinZ = EngConst::crankRad * cos(engine.getAngle() + piston.getOffset());
-		piston.setY(GLfloat(crankPinY + sqrt(pow(EngConst::conRodLen, 2) - pow(crankPinZ, 2))));
+		piston.setPosition(engine.getAngle());
 		mvp = viewProjection * piston.getModelMatrix();
 		engine.getPistonCylinder().getShader().setUniformMatrix4fv("uTransform", mvp);
 		drawCylinder(engine.getPistonCylinder());
@@ -57,14 +54,10 @@ void Renderer::drawPistons(Engine &engine, glm::mat4 viewProjection)
 
 void Renderer::drawConnectingRods(Engine &engine, glm::mat4 viewProjection)
 {
-	double crankPinY, crankPinZ;
 	glm::mat4 mvp;
 
 	for (auto conRod : engine.getConRods()) {
-		crankPinY = EngConst::crankRad * sin(engine.getAngle() + conRod.getOffset());
-		crankPinZ = EngConst::crankRad * cos(engine.getAngle() + conRod.getOffset());
-		conRod.setY(GLfloat(crankPinY + sqrt(pow(EngConst::conRodLen, 2) - pow(crankPinZ, 2)) - EngConst::crankPinRad));
-		conRod.setTilt(GLfloat(-asin(crankPinZ / EngConst::conRodLen)));
+		conRod.setPosition(engine.getAngle());
 		mvp = viewProjection * conRod.getModelMatrix();
 		engine.getConRodPrism().getShader().setUniformMatrix4fv("uTransform", mvp);
 		drawPrism(engine.getConRodPrism());

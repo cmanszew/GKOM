@@ -19,32 +19,23 @@ class Engine
 {
 public:
 	Engine();
-	Cylinder& getPistonCylinder();
 	const vector<Piston>& getPistons() const;
-	Prism& getConRodPrism();
 	const vector<ConnectingRod>& getConRods() const;
-	Cylinder& getCrankShaftCylinder();
-	Cylinder& getEllipticCylinder();
+	virtual Cylinder& getPistonCylinder() = 0;
+	virtual Prism& getConRodPrism() = 0;
+	virtual Cylinder& getCrankShaftCylinder() = 0;
+	virtual Cylinder& getEllipticCylinder() = 0;
 	CrankShaft& getCrankShaft();
 
-	ShaderProgram& getShader();
+	virtual ShaderProgram& getShader() = 0;
 	void setAngle(GLfloat angle);
 	GLfloat getAngle();
 
-private:
-	vector<GLfloat> offsets;
-
-	CylinderTextured pistonCylinder;
+protected:
 	vector<Piston> pistons;
-
-	Prism conRodPrism;
 	vector<ConnectingRod> conRods;
-
-	CylinderTextured crankShaftCylinder;
-	CylinderTextured ellipticCylinder;
 	CrankShaft crankShaft;
-
-	ShaderProgram shader;
-
+	vector<GLfloat> offsets;
+	   	  
 	GLfloat angle;
 };

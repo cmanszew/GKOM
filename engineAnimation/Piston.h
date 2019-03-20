@@ -7,12 +7,13 @@
 
 #include "Cylinder.h"
 #include "shprogram.h"
+#include "EngineConstants.h"
 
 class Piston
 {
 public:
-	Piston(GLfloat x = 0, GLfloat offset = 0, GLfloat y = 0);
-	void setY(GLfloat y);
+	Piston(GLfloat x = 0, GLfloat offset = 0, GLfloat vAngle = 0);
+	void setPosition(GLfloat crankAngle);
 	void setAngle(GLfloat angle);
 	const glm::mat4& getModelMatrix() const;
 	GLfloat getAngle();
@@ -24,4 +25,5 @@ private:
 	GLfloat offset;
 	glm::mat4 model;
 	GLfloat angle;
+	GLfloat vAngleHalf;
 };

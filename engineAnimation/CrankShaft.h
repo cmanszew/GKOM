@@ -16,7 +16,7 @@ class CrankShaft
 public:
 	CrankShaft();
 	CrankShaft(GLuint pistonCnt, const vector<GLfloat> &offsets);
-	void setup(GLuint pistonCnt, const vector<GLfloat> &offsets);
+	void setup(GLuint pistonCnt, const vector<GLfloat> &offsets, GLfloat rodsPerConnector = 1.0f);
 	void setAngle(GLfloat angle);
 	void setMainShaft();
 	void setRodConnectors();
@@ -32,4 +32,5 @@ private:
 	vector<GLfloat> offsets;
 	GLfloat angle;
 	GLuint pistonCnt;
+	GLfloat rodsPerConnector;
 };
